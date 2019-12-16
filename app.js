@@ -2,6 +2,14 @@ const controller = new ScrollMagic.Controller();
 
 const introTween = new TimelineMax();
 
+introTween
+.fromTo(".scrolldown", 2, {
+    opacity: 1
+}, {
+    opacity: 0,
+    ease: Linear.ease
+});
+
 for(i=1;i<=5;i++){
     if(i==3) {
         introTween
@@ -45,7 +53,7 @@ const introScene = new ScrollMagic.Scene({
     duration: 7000
 })
 .setTween(introTween)
-.addIndicators({ name: 'intro'})
+// .addIndicators({ name: 'intro'})
 .setPin('.intro')
 .addTo(controller);
 
@@ -87,10 +95,93 @@ const matchScene = new ScrollMagic.Scene({
     duration: 7000
 })
 .setTween(matchTween)
-.addIndicators({ name: 'tinder'})
+// .addIndicators({ name: 'tinder'})
 .setPin('.howwemet')
 .addTo(controller);
 
+const sportTween = new TimelineMax();
+
+const shuttlecockPath1 = {
+    curviness: 1,
+	values: [{
+		x: 25,
+		y: -25
+	},{
+		x: 50,
+		y: -50
+    },{
+		x: 75,
+		y: -75
+    },{
+		x: 100,
+		y: -50
+    },{
+		x: 125,
+		y: -25
+    },{
+		x: 150,
+		y: -0
+    }
+]
+}
+
+const shuttlecockPath2 = {
+    curviness: 1,
+	values: [{
+		x: 150,
+		y: -0
+    },{
+		x: 125,
+		y: -25
+    },{
+		x: 100,
+		y: -50
+    },{
+		x: 75,
+		y: -75
+    },{
+		x: 50,
+		y: -50
+    },{
+		x: 25,
+		y: -25
+	}
+]
+}
+
+
+sportTween
+.fromTo(".startsports", 2, {
+    opacity: 0
+}, {
+    opacity: 1,
+    ease: Linear.ease
+},"sport")
+.fromTo("#racquet2", 2, {
+    // rotation:0,
+    ease: Power2.easeInOut
+}, {
+    // rotation:35,
+    ease: Power1.easeInOut
+},"sport")
+.fromTo("#shuttlecock", 2, {
+    bezier: shuttlecockPath1,
+    ease: Power1.easeInOut
+}, {
+    bezier: shuttlecockPath2,
+    ease: Power1.easeInOut
+});
+
+
+const sportScene = new ScrollMagic.Scene({
+	triggerElement: '.sportstogether',
+    triggerHook: 0,
+    duration: 3000
+})
+.setTween(sportTween)
+// .addIndicators({ name: 'sportstogether'})
+.setPin('.sportstogether')
+.addTo(controller);
 
 const manPath = {
 	values: [{
@@ -128,6 +219,7 @@ const womanPath = {
 
 const liveTween = new TimelineMax();
 
+
 liveTween
 .fromTo("#startliving", 2, {
     opacity: 0
@@ -143,7 +235,7 @@ liveTween
 .from('#woman', 6, {
     bezier: womanPath,
     ease: Power1.easeInOut
-},"live")
+},"live");
 
 const liveScene = new ScrollMagic.Scene({
 	triggerElement: '.livingtogether',
@@ -151,7 +243,7 @@ const liveScene = new ScrollMagic.Scene({
     duration: 4000
 })
 .setTween(liveTween)
-.addIndicators({ name: 'livingtogether'})
+// .addIndicators({ name: 'livingtogether'})
 .setPin('.livingtogether')
 .addTo(controller);
 
@@ -344,6 +436,8 @@ const paperPath = {
 	}]
 }
 
+var revealElements = document.getElementsByClassName("digit");
+
 const travelTween = new TimelineLite();
 
 travelTween
@@ -355,6 +449,36 @@ travelTween
     bezier: cloudPath,
     ease: Power1.easeInOut
 },"first")
+.to(revealElements[0], 1, {
+    css: { className:  '+=visible' }},"first+=2")
+.to(revealElements[1], 1, {
+    css: { className:  '+=visible' }},"first+=2.5")
+.to(revealElements[2], 1, {
+    css: { className:  '+=visible' }},"first+=3")
+.to(revealElements[3], 1, {
+    css: { className:  '+=visible' }},"first+=3.5")
+.to(revealElements[4], 1, {
+    css: { className:  '+=visible' }},"first+=4")
+.to(revealElements[5], 1, {
+    css: { className:  '+=visible' }},"first+=2")
+.to(revealElements[6], 1, {
+    css: { className:  '+=visible' }},"first+=2.5")
+.to(revealElements[7], 1, {
+    css: { className:  '+=visible' }},"first+=3")
+.to(revealElements[8], 1, {
+    css: { className:  '+=visible' }},"first+=3.5")
+.to(revealElements[9], 1, {
+    css: { className:  '+=visible' }},"first+=4")
+.to(revealElements[10], 1, {
+    css: { className:  '+=visible' }},"first+=2")
+.to(revealElements[11], 1, {
+    css: { className:  '+=visible' }},"first+=2.5")
+.to(revealElements[12], 1, {
+    css: { className:  '+=visible' }},"first+=3")
+.to(revealElements[13], 1, {
+    css: { className:  '+=visible' }},"first+=3.5")
+.to(revealElements[14], 1, {
+    css: { className:  '+=visible' }},"first+=4")
 
 const travelScene = new ScrollMagic.Scene({
 	triggerElement: '.traveltogether',
@@ -363,7 +487,7 @@ const travelScene = new ScrollMagic.Scene({
 
 })
 .setTween(travelTween)
-.addIndicators()
+// .addIndicators()
 .setPin('.traveltogether')
 .addTo(controller);
 
@@ -392,11 +516,23 @@ const diveTween = new TimelineLite();
 // .addTo(controller);
 
 
-const diveTween2 = new TimelineLite();
+const diveTween2 = new TimelineMax();
 
 diveTween2
 .to("#tube_dude", 1, {
     bezier: divePath2,
+    ease: Power1.easeInOut
+},"second")
+.fromTo(".startdiving", 1, {
+    opacity: 0
+},{
+    opacity: 1,
+    ease: Power1.easeInOut
+},"second")
+.fromTo("#divepicture", 1, {
+    opacity: 0
+},{
+    opacity: 1,
     ease: Power1.easeInOut
 },"second")
 .to("#stingray", 1, {
@@ -415,7 +551,7 @@ const diveScene2 = new ScrollMagic.Scene({
 
 })
 .setTween(diveTween2)
-.addIndicators()
+// .addIndicators()
 .setPin('.#depth1 .container')
 .addTo(controller);
 
@@ -479,7 +615,7 @@ const learnScene = new ScrollMagic.Scene({
 
 })
 .setTween(learnTween)
-.addIndicators({ name: 'loop'})
+// .addIndicators({ name: 'loop'})
 // .setPin('.learntogether')
 .addTo(controller);
 
@@ -523,7 +659,7 @@ const growoldScene = new ScrollMagic.Scene({
     duration: 5000
 })
 .setTween(growoldTween)
-.addIndicators({ name: 'growold'})
+// .addIndicators({ name: 'growold'})
 .setPin('.growoldtogether')
 .addTo(controller);
 
@@ -573,7 +709,7 @@ const selfinterScene = new ScrollMagic.Scene({
     duration: 7000
 })
 .setTween(selfinterTween)
-.addIndicators({ name: 'selfinter'})
+// .addIndicators({ name: 'selfinter'})
 .setPin('.selfinterpretation')
 .addTo(controller);
 
